@@ -1,13 +1,29 @@
+"use client";
+
 import { Bell } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { Button } from "../ui/button";
 import Profile from "../profile";
+import { cn } from "@/lib/utils";
+import { usePathname } from "next/navigation";
 
-const Navbar = () => {
+interface NavbarProps {
+  className?: string;
+}
+
+const Navbar = ({ className }: NavbarProps) => {
+  const path = usePathname();
+
   return (
-    <header className="px-10 py-5 border-b">
+    <header
+      className={cn(
+        "px-10 py-5 border-b",
+        className,
+        path === "/profile" && "hidden"
+      )}
+    >
       <nav className="flex justify-between items-center">
         <Link href={"/"} className="flex gap-2 justify-center items-center">
           <Image src={"/logos/logo.svg"} alt="logo" width={32} height={32} />
@@ -20,7 +36,9 @@ const Navbar = () => {
           <Button size={"icon"} className="bg-[#304355] mr-4">
             <Bell size={24} />
           </Button>
-          <Profile />
+          <Link href="/profile">
+            <Profile />
+          </Link>
         </div>
       </nav>
     </header>

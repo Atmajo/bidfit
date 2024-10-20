@@ -1,3 +1,5 @@
+import { Clock, Heart, Home, LucideCompass, Search, UserCircle2 } from "lucide-react";
+
 export const highlightdata = [
   {
     id: 1,
@@ -65,5 +67,44 @@ export const typedata = [
   {
     id: 3,
     title: "Collectibles",
+  },
+];
+
+export const sidebardata = [
+  {
+    id: 1,
+    title: "Home",
+    icon: Home,
+    link: "/",
+  },
+  {
+    id: 2,
+    title: "Auctions",
+    icon: Clock,
+    link: "/auctions",
+  },
+  {
+    id: 3,
+    title: "Marketplace",
+    icon: Search,
+    link: "/search",
+  },
+  {
+    id: 4,
+    title: "Explore",
+    icon: LucideCompass,
+    link: "/explore",
+  },
+  {
+    id: 5,
+    title: "Activity",
+    icon: Heart,
+    link: "/#",
+  },
+  {
+    id: 6,
+    title: "Profile",
+    icon: UserCircle2,
+    link: "/profile",
   },
 ];
