@@ -2,7 +2,6 @@
 
 import { sidebardata } from "@/data";
 import { cn } from "@/lib/utils";
-import { UserCircle2 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
