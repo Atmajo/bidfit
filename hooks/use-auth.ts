@@ -81,15 +81,6 @@ export const useAuth = (): UseAuthReturn => {
     router.push("/login");
   };
 
-  // Handle redirects when authentication state changes
-  useEffect(() => {
-    if (!!cookies.get("auth-token")) {
-      router.push("/");
-    } else {
-      router.push("/login");
-    }
-  }, [router]);
-
   return {
     isLoading,
     error,
