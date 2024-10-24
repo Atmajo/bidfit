@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 // Explicitly define paths and their access rules
-const PUBLIC_PATHS = ["/"];
+const PUBLIC_PATHS = ["/", "/images", "/logos"];
 const AUTH_PATHS = ["/login", "/register", "/forgot-password"];
 
 export function middleware(request: NextRequest) {
