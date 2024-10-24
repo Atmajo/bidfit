@@ -56,7 +56,7 @@ export const useAuth = (): UseAuthReturn => {
       setIsLoading(true);
       setError(null);
       setSuccess(false);
-
+      
       const response = await register({ email, password, name });
 
       if (response.success && response.userId) {

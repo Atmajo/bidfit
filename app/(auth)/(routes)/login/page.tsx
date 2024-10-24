@@ -11,19 +11,13 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useAuth } from "@/hooks/use-auth";
+import { FormSchema } from "@/schema/login.form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
-
-export const FormSchema = z.object({
-  email: z.string().email({ message: "Enter a valid email" }),
-  password: z.string().min(8, {
-    message: "Enter a password with at least 8 characters",
-  }),
-});
 
 const Page = () => {
   const { login, isLoading } = useAuth();
