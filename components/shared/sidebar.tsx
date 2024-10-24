@@ -5,11 +5,13 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
+import { Button } from "../ui/button";
+import { useAuth } from "@/hooks/use-auth";
 
 const Sidebar = () => {
   const path = usePathname();
 
-  const moredata = ["Settings", "Help Center", "Log Out"];
+  const { logout } = useAuth();
 
   return (
     <aside
@@ -26,7 +28,8 @@ const Sidebar = () => {
               href={link}
               className={cn(
                 "flex items-center gap-4 px-4 py-2",
-                path === link && "rounded-lg bg-[#243546] shadow-md"
+                path === link ||
+                  (link.startsWith(path) && "rounded-lg bg-[#243546] shadow-md")
               )}
             >
               <Icon size={20} />
@@ -35,9 +38,11 @@ const Sidebar = () => {
           ))}
         </div>
         <div className="flex flex-col gap-8">
-          {moredata.map((item) => (
-            <h1>{item}</h1>
-          ))}
+          <h1>Settings</h1>
+          <Link href={"/help"}>Help Center</Link>
+          <button className="text-left" onClick={logout}>
+            Log Out
+          </button>
         </div>
       </div>
     </aside>

@@ -1,11 +1,22 @@
 "use client";
 
-import React, { useState } from "react";
+import Image from "next/image";
+import React, { useEffect, useState } from "react";
+import BidsCard from "../../_components/bids-card";
+import { bidsdata } from "@/data";
 
 const Page = () => {
   const [activeTab, setActiveTab] = useState("Bids");
 
   const tabs = ["Bids", "Watchlist", "Won", "Lost"];
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+
+    params.set("tab", activeTab.toLowerCase());
+    const newUrl = `${window.location.pathname}?${params.toString()}`;
+    window.history.replaceState({}, "", newUrl);
+  }, [activeTab]);
 
   return (
     <section className="ml-96">
@@ -13,9 +24,9 @@ const Page = () => {
         <h1 className="text-4xl font-bold">Welcome, {"User"}</h1>
         <div className="mt-10 relative">
           <div className="flex justify-between">
-            {tabs.map((tab) => (
+            {tabs.map((tab, index) => (
               <div
-                key={tab}
+                key={index}
                 onClick={() => setActiveTab(tab)}
                 className={`flex-1 text-center cursor-pointer`}
               >
@@ -32,6 +43,21 @@ const Page = () => {
           />
         </div>
       </nav>
+      <div className="py-5 px-14">
+        {activeTab === "Bids" &&
+          bidsdata.map(({ id, image, title, time, price }) => (
+            <BidsCard
+              key={id}
+              image={image}
+              title={title}
+              time={time}
+              price={price}
+            />
+          ))}
+        {activeTab === "Watchlist" && <div>Watchlist content</div>}
+        {activeTab === "Won" && <div>Won content</div>}
+        {activeTab === "Lost" && <div>Lost content</div>}
+      </div>
     </section>
   );
 };

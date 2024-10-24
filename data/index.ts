@@ -1,4 +1,12 @@
-import { Clock, Heart, Home, LucideCompass, Search, UserCircle2 } from "lucide-react";
+import { calculateTimeDifference } from "@/lib/utils";
+import {
+  Clock,
+  Heart,
+  Home,
+  LucideCompass,
+  Search,
+  UserCircle2,
+} from "lucide-react";
 
 export const highlightdata = [
   {
@@ -105,6 +113,16 @@ export const sidebardata = [
     id: 6,
     title: "Profile",
     icon: UserCircle2,
-    link: "/profile",
+    link: "/profile?tab=bids",
+  },
+];
+
+export const bidsdata = [
+  {
+    id: 1,
+    image: "/images/nft.png",
+    title: "Mona Lisa NFT",
+    time: calculateTimeDifference(new Date().toISOString()),
+    price: 1000,
   },
 ];
