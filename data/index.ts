@@ -70,7 +70,7 @@ export const typedata = [
   },
   {
     id: 6,
-    title: "Sneakers",
+    title: "Clothing",
   },
   {
     id: 3,

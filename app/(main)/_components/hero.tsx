@@ -24,7 +24,7 @@ const Hero = () => {
           value={q}
           onChange={(e) => setQ(e.target.value)}
         />
-        <Link href={`${q && "/search?q=" + q.toLowerCase()}&category=all`}>
+        <Link href={`${q && "/search?q=" + q.toLowerCase() + "&category=all"}`}>
           <Button className="ml-2 bg-sky-600 hover:bg-sky-800" size={"sm"}>
             Search
           </Button>

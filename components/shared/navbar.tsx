@@ -30,9 +30,11 @@ const Navbar = ({ className }: NavbarProps) => {
           <h1 className="text-2xl">BidFit</h1>
         </Link>
         <div className="flex justify-center items-center gap-2">
-          <Button className="bg-sky-600 hover:bg-sky-800 px-4 py-2 font-bold">
-            Sell
-          </Button>
+          <Link href="/sell">
+            <Button className="bg-sky-600 hover:bg-sky-800 px-4 py-2 font-bold">
+              Sell
+            </Button>
+          </Link>
           <Button size={"icon"} className="bg-[#304355] mr-4">
             <Bell size={24} />
           </Button>
