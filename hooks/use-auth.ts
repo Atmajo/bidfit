@@ -1,8 +1,10 @@
-import { useEffect, useState } from "react";
+"use client";
+
+import { useState } from "react";
 import { login, register } from "@/actions/auth.actions";
 import { useAuthStore } from "@/store/use-auth-store";
 import { RegisterData } from "@/actions/auth.actions";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import cookies from "js-cookie";
 
 interface UseAuthReturn {
@@ -24,7 +26,7 @@ export const useAuth = (): UseAuthReturn => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
-  
+
   const { userId, setUserId, clearAuth } = useAuthStore();
   const router = useRouter();
 
@@ -56,7 +58,7 @@ export const useAuth = (): UseAuthReturn => {
       setIsLoading(true);
       setError(null);
       setSuccess(false);
-      
+
       const response = await register({ email, password, name });
 
       if (response.success && response.userId) {
