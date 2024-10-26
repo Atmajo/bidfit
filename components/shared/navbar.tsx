@@ -8,6 +8,7 @@ import { Button } from "../ui/button";
 import Profile from "../profile";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
+import NotificationBell from "../notification-bell";
 
 interface NavbarProps {
   className?: string;
@@ -26,7 +27,14 @@ const Navbar = ({ className }: NavbarProps) => {
     >
       <nav className="flex justify-between items-center">
         <Link href={"/"} className="flex gap-2 justify-center items-center">
-          <Image src={"/logos/logo.svg"} alt="logo" width={32} height={32} />
+          <Image
+            src={
+              "https://utfs.io/f/mI18KTkFryOWVMY4JwGgv6oOV9d5axzTNcbPUsQYlLFtyC4K"
+            }
+            alt="logo"
+            width={24}
+            height={24}
+          />
           <h1 className="text-2xl">BidFit</h1>
         </Link>
         <div className="flex justify-center items-center gap-2">
@@ -35,9 +43,7 @@ const Navbar = ({ className }: NavbarProps) => {
               Sell
             </Button>
           </Link>
-          <Button size={"icon"} className="bg-[#304355] mr-4">
-            <Bell size={24} />
-          </Button>
+          <NotificationBell />
           <Link href="/profile">
             <Profile />
           </Link>

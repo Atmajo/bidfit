@@ -12,42 +12,42 @@ export const highlightdata = [
   {
     id: 1,
     title: "Sneakers",
-    img: "/images/sneaker.png",
+    img: "https://utfs.io/f/mI18KTkFryOWMbTicWppBCNZFExLOXAVGaKs2YWh9PceDkvm",
   },
   {
     id: 2,
     title: "Pens",
-    img: "/images/pen.png",
+    img: "https://utfs.io/f/mI18KTkFryOWfQgbIDVl0DJ3CIdjKFWZLauzRT4Gy2iY8bM7",
   },
   {
     id: 3,
     title: "Fine Jewelry",
-    img: "/images/jewellery.png",
+    img: "https://utfs.io/f/mI18KTkFryOWdHnyn7Ble8ZjcXNiQU9bFBMqaDPvpwVg2osW",
   },
   {
     id: 4,
     title: "Art",
-    img: "/images/art.png",
+    img: "https://utfs.io/f/mI18KTkFryOWWqx7IdO1ht8migB9oYDybUv7GfN3CkS6dZLw",
   },
   {
     id: 5,
     title: "Collectible Cards",
-    img: "/images/card.png",
+    img: "https://utfs.io/f/mI18KTkFryOWfQgbIDVl0DJ3CIdjKFWZLauzRT4Gy2iY8bM7",
   },
   {
     id: 6,
     title: "Vintage Fashion",
-    img: "/images/vintage-fashion.png",
+    img: "https://utfs.io/f/mI18KTkFryOWTcncjY2I7dBRQyvehYtCp5WUxgIEr0812fql",
   },
   {
     id: 7,
     title: "Comic Books",
-    img: "/images/comic.png",
+    img: "https://utfs.io/f/mI18KTkFryOWfQgbIDVl0DJ3CIdjKFWZLauzRT4Gy2iY8bM7",
   },
   {
     id: 8,
     title: "Handbags",
-    img: "/images/handbag.png",
+    img: "https://utfs.io/f/mI18KTkFryOWOR8lGy2QbhA4XozcpHFsrnZt5BENLJuv3VYx",
   },
 ];
 
