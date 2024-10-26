@@ -14,6 +14,7 @@ import { useAuth } from "@/hooks/use-auth";
 import { FormSchema } from "@/schema/login.form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
+import Link from "next/link";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -41,9 +42,11 @@ const Page = () => {
   return (
     <section className="flex flex-col justify-center items-center h-screen">
       <h1>Log In</h1>
-      <Button variant={"link"} className="text-gray-400">
-        Don&apos;t have an account? Sign Up
-      </Button>
+      <Link href="/register">
+        <Button variant={"link"} className="text-gray-400">
+          Don&apos;t have an account? Sign Up
+        </Button>
+      </Link>
       <div className="py-10 w-96">
         <Form {...form}>
           <form

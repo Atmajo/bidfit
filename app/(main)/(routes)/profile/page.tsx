@@ -4,11 +4,15 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import BidsCard from "../../_components/bids-card";
 import { bidsdata } from "@/data";
+import { useUser } from "@/hooks/use-user";
+import { useAuth } from "@/hooks/use-auth";
 
 const Page = () => {
   const [activeTab, setActiveTab] = useState("Bids");
 
   const tabs = ["Bids", "Watchlist", "Won", "Lost"];
+
+  const { user } = useUser();
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -21,7 +25,9 @@ const Page = () => {
   return (
     <section className="ml-96">
       <nav className="flex flex-col border-b-2 border-[#314861] px-14 pt-10">
-        <h1 className="text-4xl font-bold">Welcome, {"User"}</h1>
+        <h1 className="text-4xl font-bold">
+          Welcome, {user?.name.split(" ")[0]}
+        </h1>
         <div className="mt-10 relative">
           <div className="flex justify-between">
             {tabs.map((tab, index) => (

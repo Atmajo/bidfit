@@ -13,6 +13,8 @@ import { Input } from "@/components/ui/input";
 import { useAuth } from "@/hooks/use-auth";
 import { FormSchema } from "@/schema/regsiter.login";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Loader2 } from "lucide-react";
+import Link from "next/link";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -28,7 +30,7 @@ const Page = () => {
     },
   });
 
-  const { register } = useAuth();
+  const { register, isLoading } = useAuth();
 
   const onsubmit = async (data: z.infer<typeof FormSchema>) => {
     try {
@@ -37,13 +39,15 @@ const Page = () => {
       toast.error("An unexpected error occurred");
     }
   };
-  
+
   return (
     <section className="flex flex-col justify-center items-center h-screen">
       <h1>Register</h1>
-      <Button variant={"link"} className="text-gray-400">
-        Already have an account? Sign In
-      </Button>
+      <Link href="/login">
+        <Button variant={"link"} className="text-gray-400">
+          Already have an account? Sign In
+        </Button>
+      </Link>
       <div className="py-10 w-96">
         <Form {...form}>
           <form
@@ -57,7 +61,11 @@ const Page = () => {
                 <FormItem>
                   <FormLabel>Name</FormLabel>
                   <FormControl>
-                    <Input placeholder="Name" {...field} />
+                    <Input
+                      placeholder="Name"
+                      className="text-black"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -70,7 +78,11 @@ const Page = () => {
                 <FormItem>
                   <FormLabel>Email</FormLabel>
                   <FormControl>
-                    <Input placeholder="Email" {...field} />
+                    <Input
+                      placeholder="Email"
+                      className="text-black"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -83,13 +95,27 @@ const Page = () => {
                 <FormItem>
                   <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <Input placeholder="Password" type="password" {...field} />
+                    <Input
+                      placeholder="Password"
+                      className="text-black"
+                      type="password"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <Button type="submit">Log In</Button>
+            <Button type="submit">
+              {isLoading ? (
+                <div className="flex items-center gap-2">
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                  Registering
+                </div>
+              ) : (
+                "Register"
+              )}
+            </Button>
           </form>
         </Form>
       </div>

@@ -26,7 +26,7 @@ export const useAuth = (): UseAuthReturn => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
-
+  
   const { userId, setUserId, clearAuth } = useAuthStore();
   const router = useRouter();
 
