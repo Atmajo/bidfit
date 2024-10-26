@@ -24,3 +24,65 @@ export function calculateTimeDifference(biddedTime: string): string {
     return `${diffInYears} years ago`;
   }
 }
+
+export const generateUsername = () => {
+  const colors = [
+    "Red",
+    "Blue",
+    "Green",
+    "Purple",
+    "Golden",
+    "Silver",
+    "Crimson",
+    "Azure",
+    "Emerald",
+    "Ruby",
+    "Sapphire",
+    "Amber",
+    "Coral",
+    "Indigo",
+    "Jade",
+    "Lavender",
+    "Maroon",
+    "Navy",
+    "Olive",
+    "Pink",
+    "Teal",
+    "Violet",
+    "Turquoise",
+    "Cobalt",
+  ];
+
+  const animals = [
+    "Panda",
+    "Tiger",
+    "Lion",
+    "Eagle",
+    "Dolphin",
+    "Wolf",
+    "Fox",
+    "Owl",
+    "Falcon",
+    "Dragon",
+    "Phoenix",
+    "Penguin",
+    "Koala",
+    "Lynx",
+    "Hawk",
+    "Jaguar",
+    "Leopard",
+    "Raven",
+    "Beaver",
+    "Badger",
+    "Raccoon",
+    "Otter",
+    "Hedgehog",
+    "Seal",
+  ];
+
+  const randomColor = colors[Math.floor(Math.random() * colors.length)];
+  const randomAnimal = animals[Math.floor(Math.random() * animals.length)];
+  const randomNumber = Math.floor(Math.random() * 100);
+
+  return `${randomColor}${randomAnimal}${randomNumber}`;
+};

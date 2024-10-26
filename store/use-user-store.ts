@@ -3,9 +3,12 @@ import { persist } from "zustand/middleware";
 
 interface UserType {
   id: string;
+  username: string;
   email: string;
   name: string;
   role: string;
+  emailVerified: boolean;
+  profileCompleted: boolean;
 }
 
 interface UserState {

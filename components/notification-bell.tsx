@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useTransition } from "react";
+import { useEffect, useState, useTransition, useRef } from "react";
 import { Bell, Loader2, Trash2 } from "lucide-react";
 import { pusherClient } from "@/lib/pusher";
 import {
@@ -15,6 +15,7 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
+import Link from "next/link";
 
 interface Notification {
   id: string;
@@ -23,24 +24,33 @@ interface Notification {
   read: boolean;
   createdAt: string;
   userId: string;
+  link?: string;
 }
 
 export default function NotificationBell() {
   const [notifications, setNotifications] = useState<Notification[]>([]);
+  const [isOpen, setIsOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
-  const [notificationSound] = useState(
-    () => new Audio("/notification-sound.wav")
-  );
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const [isClient, setIsClient] = useState(false);
 
   const { userId } = useAuth();
 
+  // Initialize audio on client side only
+  useEffect(() => {
+    setIsClient(true);
+    audioRef.current = new Audio("/notification-sound.wav");
+  }, []);
+
   const playNotificationSound = () => {
-    notificationSound.currentTime = 0;
-    notificationSound.play().catch((error) => {
-      console.log("Audio playback failed:", error);
-    });
+    if (audioRef.current) {
+      audioRef.current.currentTime = 0;
+      audioRef.current.play().catch((error) => {
+        console.log("Audio playback failed:", error);
+      });
+    }
   };
-  
+
   const fetchNotifications = async () => {
     if (userId) {
       try {
@@ -50,6 +60,7 @@ export default function NotificationBell() {
         setNotifications(
           fetchedNotifications.map((notification) => ({
             ...notification,
+            link: "",
             createdAt: notification.createdAt.toISOString(),
           }))
         );
@@ -84,6 +95,8 @@ export default function NotificationBell() {
   };
 
   useEffect(() => {
+    if (!isClient) return; // Don't run this effect on server
+
     fetchNotifications();
 
     // Subscribe to user-specific notification channels
@@ -92,10 +105,13 @@ export default function NotificationBell() {
     // Handle new notifications
     channel.bind("new-notification", (notification: Notification) => {
       setNotifications((prev) => [notification, ...prev]);
-      // Play notification sound
       playNotificationSound();
       // Show browser notification
-      if (Notification.permission === "granted") {
+      if (
+        typeof window !== "undefined" &&
+        "Notification" in window &&
+        Notification.permission === "granted"
+      ) {
         new Notification("New Notification", {
           body: notification.message,
         });
@@ -114,14 +130,14 @@ export default function NotificationBell() {
     });
 
     // Request notification permission
-    if ("Notification" in window) {
+    if (typeof window !== "undefined" && "Notification" in window) {
       Notification.requestPermission();
     }
 
     return () => {
       pusherClient.unsubscribe(`user-${userId}`);
     };
-  }, [userId]);
+  }, [userId, isClient]);
 
   const unreadCount = notifications.filter((n) => !n.read).length;
 

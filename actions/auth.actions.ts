@@ -5,6 +5,7 @@ import bcrypt from "bcrypt";
 import { cookies } from "next/headers";
 import jwt from "jsonwebtoken";
 import { config } from "@/lib/config";
+import { generateUsername } from "@/lib/utils";
 
 export interface AuthResponse {
   message: string;
@@ -101,10 +102,12 @@ export const register = async ({
 
     // Hash password
     const hashedPassword = await bcrypt.hash(password, 10);
+    const username = generateUsername();
 
     // Create new user
     const newUser = await prisma?.user.create({
       data: {
+        username: username,
         email,
         password: hashedPassword,
         name,

@@ -6,6 +6,7 @@ import { useAuthStore } from "@/store/use-auth-store";
 import { RegisterData } from "@/actions/auth.actions";
 import { useRouter } from "next/navigation";
 import cookies from "js-cookie";
+import { createDefaultNotifications } from "@/lib/notifications/default-notification";
 
 interface UseAuthReturn {
   isLoading: boolean;
@@ -26,7 +27,7 @@ export const useAuth = (): UseAuthReturn => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
-  
+
   const { userId, setUserId, clearAuth } = useAuthStore();
   const router = useRouter();
 
@@ -41,6 +42,11 @@ export const useAuth = (): UseAuthReturn => {
       if (response.success && response.userId) {
         setUserId(response.userId);
         cookies.set("auth-token", response.token!, { expires: 7 });
+        try {
+          await createDefaultNotifications(response.userId);
+        } catch (error) {
+          console.error("Error creating default notifications:", error);
+        }
         setSuccess(true);
         router.push("/");
       } else {

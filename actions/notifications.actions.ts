@@ -2,6 +2,7 @@
 
 import { prisma } from "@/lib/db";
 import { pusher } from "@/lib/pusher";
+import { NotificationType } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 
 export async function getNotifications(userId: string) {
@@ -24,18 +25,15 @@ export async function getNotifications(userId: string) {
 export async function createNotification({
   userId,
   message,
-  type,
 }: {
   userId: string;
   message: string;
-  type: string;
 }) {
   try {
     const notification = await prisma.notification.create({
       data: {
         userId,
-        message,
-        type,
+        message
       },
     });
 
