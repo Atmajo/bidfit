@@ -1,7 +1,8 @@
+import React from "react";
 import Navbar from "@/components/shared/navbar";
 import Sidebar from "@/components/shared/sidebar";
-import { cn } from "@/lib/utils";
-import React from "react";
+import Loader from "./_components/loading";
+import { LoadingProvider } from "@/provider/loading-provider";
 
 interface MainLayoutProps {
   children: React.ReactNode;
@@ -9,11 +10,14 @@ interface MainLayoutProps {
 
 const MainLayout = ({ children }: MainLayoutProps) => {
   return (
-    <main>
-      <Navbar />
-      <Sidebar />
-      {children}
-    </main>
+    <LoadingProvider>
+      <main>
+        <Loader />
+        <Navbar />
+        <Sidebar />
+        {children}
+      </main>
+    </LoadingProvider>
   );
 };
 

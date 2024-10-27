@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import BidsCard from "../../_components/bids-card";
 import { bidsdata } from "@/data";
 import { useUser } from "@/hooks/use-user";
+import { useLoading } from "@/provider/loading-provider";
 
 const Page = () => {
   const [activeTab, setActiveTab] = useState("Bids");
@@ -12,6 +13,18 @@ const Page = () => {
   const tabs = ["Bids", "Watchlist", "Won", "Lost"];
 
   const { user } = useUser();
+  const { setLoading } = useLoading();
+  
+  useEffect(() => {
+    setLoading(true);
+    const timeout = setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+    
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, []);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
