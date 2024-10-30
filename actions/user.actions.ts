@@ -5,11 +5,13 @@ import { prisma } from "@/lib/db";
 export type User = {
   id: string;
   username: string;
-  email: string;
   name: string;
+  email: string;
+  phone: string | null;
   role: string;
   emailVerified: boolean;
   profileCompleted: boolean;
+  image: string | null;
 };
 
 export async function getUser(userId: string): Promise<User | null> {
@@ -24,12 +26,14 @@ export async function getUser(userId: string): Promise<User | null> {
       },
       select: {
         id: true,
-        email: true,
-        name: true,
-        role: true,
         username: true,
+        name: true,
+        email: true,
+        phone: true,
+        role: true,
         emailVerified: true,
         profileCompleted: true,
+        image: true,
       },
     });
 

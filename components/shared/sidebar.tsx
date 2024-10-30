@@ -38,7 +38,7 @@ const Sidebar = () => {
           ))}
         </div>
         <div className="flex flex-col gap-8">
-          <h1>Settings</h1>
+          <Link href="/settings">Settings</Link>
           <Link href={"/help"}>Help Center</Link>
           <button className="text-left" onClick={logout}>
             Log Out

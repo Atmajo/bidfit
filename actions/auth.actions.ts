@@ -74,6 +74,14 @@ export const login = async (
   }
 };
 
+export const fetchProfileImage = async (name: string) => {
+  const response = await fetch(
+    `https://api.dicebear.com/9.x/pixel-art/svg?seed=${name}`
+  );
+
+  return response.url;
+};
+
 export interface RegisterData {
   email: string;
   password: string;
@@ -103,7 +111,8 @@ export const register = async ({
     // Hash password
     const hashedPassword = await bcrypt.hash(password, 10);
     const username = generateUsername();
-
+    const image = await fetchProfileImage(name.split(" ")[0].toLowerCase());
+    
     // Create new user
     const newUser = await prisma?.user.create({
       data: {
@@ -111,6 +120,7 @@ export const register = async ({
         email,
         password: hashedPassword,
         name,
+        image: image,
       },
     });
 

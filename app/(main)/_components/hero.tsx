@@ -12,7 +12,7 @@ const Hero = () => {
 
   return (
     <div className="relative">
-      <Image src={"https://utfs.io/f/mI18KTkFryOWZf3yq7X41hQ0cm3fL6Vx9aHOIAXGuZNzyJRt"} alt="hero" width={1000} height={1000} />
+      <Image src={"https://utfs.io/f/mI18KTkFryOWZf3yq7X41hQ0cm3fL6Vx9aHOIAXGuZNzyJRt"} alt="hero" width={1000} height={1000} priority />
       <h1 className="absolute z-10 bottom-28 left-10 text-4xl font-bold">
         New and notable
       </h1>
