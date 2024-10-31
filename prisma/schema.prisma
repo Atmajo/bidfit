@@ -22,7 +22,7 @@ model User {
   role             Role           @default(USER)
   emailVerified    Boolean        @default(false)
   profileCompleted Boolean        @default(false)
-  image            String?
+  image            String
   Notification     Notification[]
   sell             Sell[]
 }

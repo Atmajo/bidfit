@@ -142,7 +142,7 @@ const ImageDropZone = ({
   return (
     <div className="space-y-4">
       <Label className="text-white">
-        Photos {maxFiles !== Infinity && `(up to ${maxFiles})`}
+        Images {maxFiles !== Infinity && `(up to ${maxFiles})`}
       </Label>
       <div
         {...getRootProps()}

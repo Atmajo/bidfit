@@ -7,10 +7,10 @@ interface UserType {
   name: string;
   email: string;
   phone: string | null;
-  role: string;
+  role: "ADMIN" | "USER";
   emailVerified: boolean;
   profileCompleted: boolean;
-  image: string | null;
+  image: string;
 }
 
 interface UserState {

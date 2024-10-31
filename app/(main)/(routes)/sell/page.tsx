@@ -47,7 +47,7 @@ const SellPage = () => {
       [field]: value,
     }));
   }, []);
-
+  
   const handleUploadComplete = useCallback((urls: string[]) => {
     setUploadedUrls(urls);
   }, []);
@@ -55,7 +55,7 @@ const SellPage = () => {
   const handleSubmit = useCallback(
     (e: React.FormEvent) => {
       e.preventDefault();
-
+      
       if (images.length === 0) {
         alert("Please upload at least one image");
         return;

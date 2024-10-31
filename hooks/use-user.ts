@@ -27,7 +27,7 @@ export const useUser = (): UseUserReturn => {
       setIsLoading(false);
     }
   };
-  
+
   useEffect(() => {
     if (userId) {
       fetchUser(userId);
