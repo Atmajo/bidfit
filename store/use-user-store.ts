@@ -1,3 +1,4 @@
+import { Sell } from "@prisma/client";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
@@ -11,6 +12,7 @@ interface UserType {
   emailVerified: boolean;
   profileCompleted: boolean;
   image: string;
+  sell?: Sell[] | null;
 }
 
 interface UserState {

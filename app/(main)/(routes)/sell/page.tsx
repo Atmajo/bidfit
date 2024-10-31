@@ -17,10 +17,15 @@ import {
 import Link from "next/link";
 import ImageDropZone from "../../_components/image-dropzone";
 import type { ImageFile } from "../../_components/image-dropzone";
+import { useAuth } from "@/hooks/use-auth";
+import { addSell } from "@/actions/sell.actions";
+import { toast } from "sonner";
 
 const SellPage = () => {
   const [images, setImages] = useState<ImageFile[]>([]);
   const [uploadedUrls, setUploadedUrls] = useState<string[]>([]);
+
+  const { userId } = useAuth();
 
   const [formData, setFormData] = useState({
     title: "",
@@ -47,15 +52,15 @@ const SellPage = () => {
       [field]: value,
     }));
   }, []);
-  
+
   const handleUploadComplete = useCallback((urls: string[]) => {
     setUploadedUrls(urls);
   }, []);
 
   const handleSubmit = useCallback(
-    (e: React.FormEvent) => {
+    async (e: React.FormEvent) => {
       e.preventDefault();
-      
+
       if (images.length === 0) {
         alert("Please upload at least one image");
         return;
@@ -69,17 +74,30 @@ const SellPage = () => {
 
       const submissionData = {
         ...formData,
-        images: images.map((img) => ({
-          id: img.id,
-          filename: img.file.name,
-          type: img.file.type,
-          size: img.file.size,
-          url: img.uploadedUrl,
-        })),
+        images: images
+          .map((img) => img.uploadedUrl)
+          .filter((img) => img !== undefined),
+        userId: userId!,
       };
 
-      console.log("Form submitted with data:", submissionData);
       // Here you would typically send the data to your backend
+      await addSell(submissionData)
+        .then((data) => {
+          if (data.success) {
+            toast.success("Item listed successfully");
+            setFormData({
+              title: "",
+              category: "",
+              description: "",
+              price: "",
+              condition: "",
+            });
+            setUploadedUrls([]);
+          } else {
+            toast.error("Error listing item");
+          }
+        })
+        .catch((err) => console.error(err));
     },
     [images, formData]
   );

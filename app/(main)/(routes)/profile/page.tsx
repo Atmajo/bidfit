@@ -5,11 +5,12 @@ import React, { useEffect, useState } from "react";
 import BidsCard from "../../_components/bids-card";
 import { bidsdata } from "@/data";
 import { useUser } from "@/hooks/use-user";
+import SellsCard from "../../_components/profile/sells-card";
 
 const Page = () => {
-  const [activeTab, setActiveTab] = useState("Bids");
+  const [activeTab, setActiveTab] = useState("Sells");
 
-  const tabs = ["Bids", "Watchlist", "Won", "Lost"];
+  const tabs = ["Sells", "Bids", "Watchlist", "Won", "Lost"];
 
   const { user } = useUser();
 
@@ -24,9 +25,7 @@ const Page = () => {
   return (
     <section className="ml-96">
       <nav className="flex flex-col border-b-2 border-[#314861] px-14 pt-10">
-        <h1 className="text-4xl font-bold">
-          Welcome, {user?.username}
-        </h1>
+        <h1 className="text-4xl font-bold">Welcome, {user?.username}</h1>
         <div className="mt-10 relative">
           <div className="flex justify-between">
             {tabs.map((tab, index) => (
@@ -49,6 +48,7 @@ const Page = () => {
         </div>
       </nav>
       <div className="py-5 px-14">
+        {activeTab === "Sells" && <SellsCard />}
         {activeTab === "Bids" &&
           bidsdata.map(({ id, image, title, time, price }) => (
             <BidsCard

@@ -1,6 +1,7 @@
 "use server";
 
 import { prisma } from "@/lib/db";
+import { Sell } from "@prisma/client";
 
 export type User = {
   id: string;
@@ -12,6 +13,7 @@ export type User = {
   emailVerified: boolean;
   profileCompleted: boolean;
   image: string;
+  sell?: Sell[] | null;
 };
 
 export async function getUser(userId: string): Promise<User | null> {
@@ -34,6 +36,7 @@ export async function getUser(userId: string): Promise<User | null> {
         emailVerified: true,
         profileCompleted: true,
         image: true,
+        sell: true,
       },
     });
 
