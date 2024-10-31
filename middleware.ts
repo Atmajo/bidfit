@@ -9,6 +9,7 @@ const PUBLIC_PATHS = [
   "/login",
   "/register",
   "/forgot-password",
+  "/verify",
 ];
 
 export function middleware(request: NextRequest) {

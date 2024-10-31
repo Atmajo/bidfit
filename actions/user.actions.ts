@@ -75,6 +75,34 @@ export async function updateUser(data: {
       },
     });
 
+    if (
+      user.phone !== null &&
+      body.phone !== null &&
+      user.profileCompleted === false
+    ) {
+      const isCompleted = await prisma.user.update({
+        where: {
+          id: id,
+        },
+        data: {
+          profileCompleted: true,
+        },
+        select: {
+          profileCompleted: true,
+        },
+      });
+
+      if (isCompleted.profileCompleted) {
+        // Create notification
+        await prisma.notification.create({
+          data: {
+            userId: id,
+            message: "Profile completed!",
+          },
+        });
+      }
+    }
+
     return user;
   } catch (error) {
     console.error("Error updating user:", error);

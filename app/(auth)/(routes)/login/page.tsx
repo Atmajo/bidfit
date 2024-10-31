@@ -1,5 +1,6 @@
 "use client";
 
+import { PasswordInput } from "@/components/custom";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -21,7 +22,7 @@ import { toast } from "sonner";
 import { z } from "zod";
 
 const Page = () => {
-  const { login, isLoading } = useAuth();
+  const { login, isLoading, success } = useAuth();
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -34,6 +35,11 @@ const Page = () => {
   const onsubmit = async (data: z.infer<typeof FormSchema>) => {
     try {
       await login(data.email, data.password);
+      if (success) {
+        toast.success("Logged in successfully");
+      } else {
+        toast.error("Login failed");
+      }
     } catch (error) {
       toast.error("An unexpected error occurred");
     }

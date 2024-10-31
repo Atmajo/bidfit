@@ -1,8 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Navbar from "@/components/shared/navbar";
 import Sidebar from "@/components/shared/sidebar";
-import Loader from "./_components/loading";
-import { LoadingProvider } from "@/provider/loading-provider";
+import { Toaster } from "@/components/ui/toaster";
 
 interface MainLayoutProps {
   children: React.ReactNode;
@@ -10,14 +9,12 @@ interface MainLayoutProps {
 
 const MainLayout = ({ children }: MainLayoutProps) => {
   return (
-    <LoadingProvider>
-      <main>
-        <Loader />
-        <Navbar />
-        <Sidebar />
-        {children}
-      </main>
-    </LoadingProvider>
+    <main>
+      <Navbar />
+      <Sidebar />
+      {children}
+      <Toaster />
+    </main>
   );
 };
 

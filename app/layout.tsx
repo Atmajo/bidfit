@@ -2,6 +2,10 @@ import type { Metadata } from "next";
 import { GeistMono } from "geist/font/mono";
 import "./globals.css";
 import { Suspense } from "react";
+import {
+  LoadingProvider,
+  NavigationLoader,
+} from "@/provider/toploader-provider";
 
 export const metadata: Metadata = {
   title: "BidFit",
@@ -16,7 +20,12 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={GeistMono.className}>
-        <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
+        <Suspense fallback={<div>Loading...</div>}>
+          <LoadingProvider>
+            <NavigationLoader />
+            {children}
+          </LoadingProvider>
+        </Suspense>
       </body>
     </html>
   );

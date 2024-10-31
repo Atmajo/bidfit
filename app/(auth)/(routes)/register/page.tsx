@@ -30,11 +30,16 @@ const Page = () => {
     },
   });
 
-  const { register, isLoading } = useAuth();
+  const { register, isLoading, success } = useAuth();
 
   const onsubmit = async (data: z.infer<typeof FormSchema>) => {
     try {
       await register(data);
+      if (success) {
+        toast.success("Registered successfully");
+      } else {
+        toast.error("Registration failed");
+      }
     } catch (error) {
       toast.error("An unexpected error occurred");
     }
