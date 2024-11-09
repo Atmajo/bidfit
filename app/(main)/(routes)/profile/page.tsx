@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import BidsCard from "../../_components/bids-card";
+import BidsCard from "../../_components/profile/bids-card";
 import { bidsdata } from "@/data";
 import { useUser } from "@/hooks/use-user";
 import SellsCard from "../../_components/profile/sells-card";

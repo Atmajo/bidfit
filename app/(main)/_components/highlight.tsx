@@ -1,4 +1,5 @@
 import { highlightdata } from "@/data";
+import Link from "next/link";
 import React from "react";
 
 const HighlightSection = () => {
@@ -12,6 +13,9 @@ const HighlightSection = () => {
             <p className="mt-2">{title}</p>
           </div>
         ))}
+        <Link href={"/products"} className="flex flex-col justify-center items-center w-1/6">
+          <p className="mt-2">View All</p>
+        </Link>
       </div>
     </div>
   );

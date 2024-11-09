@@ -1,7 +1,6 @@
 "use server";
 
 import { prisma } from "@/lib/db";
-import { NextResponse } from "next/server";
 
 interface Sell {
   title: string;
@@ -24,6 +23,40 @@ export const addSell = async (data: Sell) => {
     console.log(err);
     return {
       error: "Error adding sell",
+      status: 500,
+      success: false,
+    };
+  }
+};
+
+export const getSells = async () => {
+  try {
+    const sells = await prisma.sell.findMany();
+
+    return { sells: sells, status: 200, success: true };
+  } catch (err) {
+    console.log(err);
+    return {
+      error: "Error getting sells",
+      status: 500,
+      success: false,
+    };
+  }
+};
+
+export const getSellById = async (id: string) => {
+  try {
+    const sell = await prisma.sell.findUnique({
+      where: {
+        id: id,
+      },
+    });
+
+    return { sell: sell, status: 200, success: true };
+  } catch (err) {
+    console.log(err);
+    return {
+      error: "Error getting sell",
       status: 500,
       success: false,
     };

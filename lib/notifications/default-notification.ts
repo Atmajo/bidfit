@@ -11,7 +11,7 @@ export async function createDefaultNotifications(userId: string) {
         email: true,
         emailVerified: true,
         profileCompleted: true,
-        Notification: {
+        notification: {
           where: {
             OR: [
               { type: NotificationType.EMAIL_VERIFICATION },
@@ -29,7 +29,7 @@ export async function createDefaultNotifications(userId: string) {
     // Check for email verification notification
     if (
       !user.emailVerified &&
-      !user.Notification.some(
+      !user.notification.some(
         (n) => n.type === NotificationType.EMAIL_VERIFICATION
       )
     ) {
@@ -46,7 +46,7 @@ export async function createDefaultNotifications(userId: string) {
     // Check for profile completion notification
     if (
       !user.profileCompleted &&
-      !user.Notification.some(
+      !user.notification.some(
         (n) => n.type === NotificationType.PROFILE_COMPLETION
       )
     ) {
