@@ -17,6 +17,10 @@ const Page = () => {
   );
 
   useEffect(() => {
+    setCategory(paramCategory.get("category")!);
+  }, [paramCategory.get("category")]);
+
+  useEffect(() => {
     const params = new URLSearchParams(window.location.search);
 
     if (category) {
@@ -37,8 +41,6 @@ const Page = () => {
     );
   }
 
-  console.log(sells);
-  
   return (
     <section className="py-4 px-10">
       <div className="flex justify-between items-center">
@@ -49,7 +51,7 @@ const Page = () => {
         </div>
       </div>
       <div className="py-10">
-        <div className="grid grid-cols-4 gap-4">
+        <div className="grid grid-cols-4 gap-4" key={1}>
           {sells?.map((sell) =>
             category === "all" || sell.category === category ? (
               <ProductCard
@@ -58,10 +60,10 @@ const Page = () => {
                 img={sell.images}
                 link={`/products/${sell.id}`}
                 price={`$${sell.price}`}
-                imgStyle={{ objectFit: 'cover', width: '100%', height: '100%' }}
+                imgStyle={{ objectFit: "cover", width: "100%", height: "100%" }}
               />
             ) : (
-              <div>
+              <div key={`no-product-${sell.id}`}>
                 <h1>No products found</h1>
               </div>
             )
