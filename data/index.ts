@@ -84,6 +84,10 @@ export const typedata = [
     id: 3,
     title: "Collectibles",
   },
+  {
+    id: 7,
+    title: "Others",
+  },
 ];
 
 export const sidebardata = [

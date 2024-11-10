@@ -20,10 +20,20 @@ import type { ImageFile } from "../../_components/image-dropzone";
 import { useAuth } from "@/hooks/use-auth";
 import { addSell } from "@/actions/sell.actions";
 import { toast } from "sonner";
+import { format } from "date-fns";
+import { Calendar as CalendarIcon } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { DatetimePicker } from "@/components/ui/date-time-picker";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 
 const SellPage = () => {
   const [images, setImages] = useState<ImageFile[]>([]);
   const [uploadedUrls, setUploadedUrls] = useState<string[]>([]);
+  const [date, setDate] = React.useState<Date>(new Date());
 
   const { userId } = useAuth();
 
@@ -33,6 +43,7 @@ const SellPage = () => {
     description: "",
     price: "",
     condition: "",
+    endDate: new Date(),
   });
 
   const handleInputChange = useCallback(
@@ -78,6 +89,7 @@ const SellPage = () => {
           .map((img) => img.uploadedUrl)
           .filter((img) => img !== undefined),
         userId: userId!,
+        endDate: date,
       };
 
       // Here you would typically send the data to your backend
@@ -91,6 +103,7 @@ const SellPage = () => {
               description: "",
               price: "",
               condition: "",
+              endDate: new Date(),
             });
             setUploadedUrls([]);
           } else {
@@ -245,6 +258,38 @@ const SellPage = () => {
                     </SelectItem>
                   </SelectContent>
                 </Select>
+              </div>
+
+              {/* End Date */}
+              <div className="flex flex-col space-y-2">
+                <Label htmlFor="condition" className="text-white">
+                  End Date
+                </Label>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Button
+                      variant={"outline"}
+                      className={cn(
+                        "w-[280px] justify-start text-left font-normal",
+                        !date && "text-muted-foreground"
+                      )}
+                    >
+                      <CalendarIcon className="mr-2 h-4 w-4" />
+                      {date ? (
+                        format(date, "PPP HH:mm")
+                      ) : (
+                        <span>Pick a date</span>
+                      )}
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-auto p-4">
+                    <DatetimePicker
+                      selected={date}
+                      setDate={setDate}
+                      initialFocus
+                    />
+                  </PopoverContent>
+                </Popover>
               </div>
 
               {/* Submit Button */}

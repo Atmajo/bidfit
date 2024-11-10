@@ -10,6 +10,7 @@ interface Sell {
   condition: string;
   images: string[];
   userId: string;
+  endDate: Date;
 }
 
 export const addSell = async (data: Sell) => {
@@ -51,7 +52,7 @@ export const getSellById = async (id: string) => {
         id: id,
       },
     });
-
+    
     return { sell: sell, status: 200, success: true };
   } catch (err) {
     console.log(err);

@@ -6,23 +6,23 @@ import { Sell } from "@prisma/client";
 import { useEffect, useState } from "react";
 
 interface SellReturn {
-  sells: Sell[] | null;
+  sell: Sell | null;
   isLoading: boolean;
 }
 
-export const useSells = (id?: string): SellReturn => {
-  const [sells, setSells] = useState<Sell[] | null>(null);
+export const useSell = (id: string): SellReturn => {
+  const [sell, setSell] = useState<Sell | null>(null);
   const { userId } = useAuthStore();
   const [isLoading, setIsLoading] = useState(true);
 
-  const fetchSells = async () => {
+  const fetchSell = async (id: string) => {
     try {
       setIsLoading(true);
-      const sellsData = await getSells();
-      setSells(sellsData.sells!);
+      const sellsData = await getSellById(id);
+      setSell(sellsData.sell!);
     } catch (err) {
-      console.error("Error fetching sells:", err);
-      setSells(null);
+      console.error("Error fetching sell:", err);
+      setSell(null);
     } finally {
       setIsLoading(false);
     }
@@ -30,12 +30,12 @@ export const useSells = (id?: string): SellReturn => {
 
   useEffect(() => {
     if (userId) {
-      fetchSells();
+      fetchSell(id!);
     } else {
-      setSells(null);
+      setSell(null);
       setIsLoading(false);
     }
   }, [userId]);
 
-  return { sells, isLoading };
+  return { sell, isLoading };
 };
